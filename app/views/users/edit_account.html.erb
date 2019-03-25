@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <title>Home Page</title>
+    <style>
+
+        .box {
+            display: inline-block;
+        }
+
+        .logo {
+            width:100px; 
+            height:100px;
+            vertical-align:top;
+        }
+
+        .background {
+            width: 1500px;
+            height: 750px;
+            background-image: url('/assets/facade.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: contain;
+            
+        }
+
+        .other{
+            width: 950px;
+            margin-right: 145px;
+            background: rgba(230,230,230,.7)
+        }
+
+        .red {
+            color: red;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background container">
+        <div class="container other">
+            
+            <img class="d-inline-block logo" src="/assets/logo.jpg" alt="logo">
+            <h3>Editing <%= @edit[:subthread_name]%></h3>
+
+    <form action="/user/account/<%= @edit[:id] %>" method="post">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="patch">
+        <section>
+
+            <h4 class="font-weight-bold">First Name: <%=  %></h4>
+            <input type="text" name="user[first_name]" value="<%= @edit.first_name %>">
+            <% if flash[:first_name] != []%>
+                <p class="red"><%= flash[:first_name]%></p>
+            <% end %>
+
+            <h4 class="font-weight-bold">Last Name: <%=  %></h4>
+            <input type="text" name="user[last_name]" value="<%= @edit.last_name %>">
+            <% if flash[:last_name] != []%>
+                <p class="red"><%= flash[:last_name]%></p>
+            <% end %>
+
+            <h4 class="font-weight-bold">Username: <%= %></h4>
+            <input type="text" name="user[username]" value="<%= @edit.username %>">
+            <% if flash[:username] != []%>
+                <p class="red"><%= flash[:username]%></p>
+            <% end %>
+            
+            <h4 class="font-weight-bold">Email: <%= %></h4>
+            <input type="text" name="user[email]" value="<%= @edit.email %>">
+            
+            <% if flash[:email] != []%>
+                <p class="red"><%= flash[:email]%></p>
+            <% end %>
+
+            <h4 class="font-weight-bold">Password: <%= %></h4>
+            <input name="user[password]" type="password" placeholder="Password"> 
+            <% if flash[:password] != []%>
+                <p class="red"><%= flash[:password]%></p>
+            <% end %>
+
+            <h4 class="font-weight-bold">Confirm Password: <%= %></h4>
+            <input name="user[confirm_password]"type="password" placeholder="Confirm Password"> 
+            <p class="red"><%= flash[:confirm] %></p>
+        </section>
+        <button class="d-block btn btn-success">Update</button>
+    </form>
+                
+            <a class="btn btn-danger" href="/delete_session">Logout</a>
+            <a class="btn btn-success" href="/user">Home</a>
+        </div>
+    </div>
+
+</body>
+</html>

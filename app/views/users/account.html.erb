@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+    <title>Home Page</title>
+    <style>
+
+        .box {
+            display: inline-block;
+        }
+
+        .logo {
+            width:100px; 
+            height:100px;
+            vertical-align:top;
+        }
+
+        .background {
+            width: 1500px;
+            height: 750px;
+            background-image: url('/assets/facade.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: contain;
+            
+        }
+
+        .other{
+            width: 950px;
+            margin-right: 145px;
+            background: rgba(230,230,230,.7)
+        }
+
+        .green {
+            color: green;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="background container">
+        <div class="container other">
+            
+            <img class="d-inline-block logo" src="/assets/logo.jpg" alt="logo">
+            <h2><%= session[:params]['username']%>'s Account Details</h2>
+
+            <p class="green"><%= flash[:success]%></p>
+            
+            
+            <% @users.each do |user| %>
+                <section>
+                    <h4 class="font-weight-bold">First Name: <%= user.first_name %></h4>
+                    <h4 class="font-weight-bold">Last Name: <%= user.last_name %></h4>
+                    <h4 class="font-weight-bold">Username: <%= user.username%></h4>
+                    <h4 class="font-weight-bold">Email: <%= user.email%></h4>
+                </section>
+            
+            <h2><%= session[:params]['username']%>'s Account Stats</h2>
+            <section>
+                <h4 class="font-weight-bold">Total Threads:  <%= @tThreads %> </h4>
+                <h4 class="font-weight-bold">Total Comments: <%= @tComments %> </h4>
+                <h4 class="font-weight-bold">Droppin Knowledge Since: <%= user.created_at.strftime('%B %d, %Y') %> </h4>
+            </section>
+            
+            <% end %>
+                
+            <a class="btn btn-danger" href="/delete_session">Logout</a>
+            <a class="btn btn-danger" href="/user/account/<%= @users[0]['id']%>"  data-method="delete">Delete Account</a>
+            <a class="btn btn-success" href="/user">Home</a>
+            <a class="btn btn-primary" href="/user/account/edit/<%= @users[0]['id']%>">Edit</a>
+        </div>
+    </div>
+
+</body>
+</html>
